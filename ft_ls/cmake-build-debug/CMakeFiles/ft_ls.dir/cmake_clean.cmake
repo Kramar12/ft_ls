@@ -2,7 +2,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ft_ls.dir/ft_ls.c.o"
   "CMakeFiles/ft_ls.dir/major.c.o"
   "CMakeFiles/ft_ls.dir/main.c.o"
-  "CMakeFiles/ft_ls.dir/auxiliary.c.o"
+  "CMakeFiles/ft_ls.dir/mauxiliary.c.o"
+  "CMakeFiles/ft_ls.dir/rightstypes.c.o"
   "ft_ls.pdb"
   "ft_ls"
 )

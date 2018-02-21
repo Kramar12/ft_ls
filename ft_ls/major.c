@@ -4,53 +4,139 @@
 # include "libft/ft_strlen.c"
 # include "libft/ft_strdup.c"
 # include "libft/ft_strcmp.c"
+# include "libft/ft_strjoin.c"
+# include "libft/ft_strsub.c"
+# include "libft/ft_memalloc.c"
+# include "libft/ft_memset.c"
 
-int             ft_ls(char **av)
+
+void    get_time(char *place);
+
+
+int             ft_ls(char **av)    // s flagom t dlina kajdogo po 12
 {
 	DIR *dir;
 	uid_t uid;
 	struct passwd *userinfo;
 	struct dirent *entry;
+	t_ls *tape;
+	t_exls *ext;
 
 	userinfo = getpwuid(uid);
-	*av++;
+
 	dir = *av ? opendir(*av) : opendir("./");
 	entry = readdir(dir);
 
-	bhavachakra("../hello/taste");
+	ls_whip(*av, dir, entry);
+	//ls_rec(*av);
 	closedir(dir);
 	return (0);
 }
 
-int bhavachakra(char *av)
+void    get_time(char *place)
+{
+	struct passwd *pw;
+	struct group  *gr;
+	struct stat sb;
+	char *dest;
+	stat(place, &sb);
+
+	dest = ft_strsub(ctime(&sb.st_mtimespec), 4, 12);
+	pw  = getpwuid(sb.st_uid);
+	gr = getgrgid(sb.st_gid);
+	printf("\t%d\t%s\t%s\t%10zu\t%s\t",sb.st_nlink, pw->pw_name, gr->gr_name, sb.st_size, dest);       //dodelat
+
+	char outstr[200];
+
+
+
+//	struct group  *gr = getgrgid(sb.st_gid);
+
+
+}
+
+void	ls_whip(const char *dest, DIR *dir, struct dirent *entry)
 {
 	t_ls *tape;
 	t_exls *ext;
-	DIR *dir;
-	struct dirent *entry;
 	struct winsize w;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	w.ws_col = 132;
+	w.ws_col = 136;
 
+	if (!(dir = dest ? opendir(dest) : opendir("./")))
+		return ;
+	entry = readdir(dir);
 	tape = tlsnew();
 	ext = textlsnew();
-	dir = *av ? opendir(av) : opendir("./");
-	entry = readdir(dir);
 	ext->wword = ls_tsd(*dir, entry, tape);
 	ext->cword = countargs(*dir, entry);
-	tape = ls_sl(tape);
 	ext->wscol = w.ws_col;
-	ls_prnt(tape, ext);
+	ext->dest = ft_strdup(dest);
+	tape = ls_sl(tape);
 
 
+	ls_lpr(tape, ext, entry);
+	//ls_prnt(tape, ext);
 	closedir(dir);
-	return (0);
+}
+
+void	ls_lpr(t_ls *root, t_exls *ext, struct dirent *entry)
+{
+	time_t lt;
+	int     i;
+	DIR *dir;
+	char *dest;
+
+//	lt = time(NULL);
+//	printf (ctime(&lt));
+
+	if (!(dir = opendir(ext->dest)))
+		return;
+	while (root)
+	{
+		if (root->nm && *root->nm != '.')
+		{
+				dest = ft_strjoin(ext->dest, root->nm);
+				ls_pr_type(root->tp);
+				ls_rights(dest);
+				get_time(dest);
+				printf("%s", root->nm);
+		}
+		root = root->next;
+	}
+
+}
+
+void ls_rec(const char *name)
+{
+	DIR *dir;
+	char *path;
+	struct dirent *entry;
+
+	if (!(printf("\n")) || !(dir = opendir(name)))
+		return;
+	if((entry = readdir(dir)))
+		ls_whip(name, dir, entry);
+	closedir(dir);
+
+
+	if (!(printf("\n")) || !(dir = opendir(name)))
+		return;
+	while ((entry = readdir(dir)) || closedir(dir))
+		if (entry->d_type == DT_DIR && (*entry->d_name != '.'))
+		{
+			path = ft_strjoin(ft_strjoin(name, "/"), entry->d_name);
+			printf("%s/%s:", name,  entry->d_name);
+			ls_rec(path);
+		}
 }
 
 void    ls_prnt(t_ls *root, t_exls *ext)
 {
 	int     i;
+	int 	tcword;
 
+	tcword = ext->cword;
 	i = 0;
 	while (++ext->wword % 8);	// there is a problem with a wide, but i forgot what the problem is
 	while (root)
@@ -63,14 +149,11 @@ void    ls_prnt(t_ls *root, t_exls *ext)
 				printf("%-*s", ext->wword, root->nm);
 		}
 		else
-			ext->cword--;
+			tcword--;
 		i += (root->nm && *root->nm != '.') ? ext->wword : 0;
 		root = root->next;
 	}
 }
-
-
-
 
 t_ls 	*ls_sl(t_ls *root)	//sort list
 {
@@ -101,6 +184,7 @@ t_ls 	*ls_sl(t_ls *root)	//sort list
 	return (new_root);
 }
 
+
 int     ls_tsd(DIR dir, struct dirent *entry, t_ls *tape)   //take struct dirent
 {
 	int     width;
@@ -113,7 +197,6 @@ int     ls_tsd(DIR dir, struct dirent *entry, t_ls *tape)   //take struct dirent
 		tape->sz = dir.__dd_len;
 		width = entry->d_namlen > width ? entry->d_namlen : width;
 		tape->next = tlsnew();
-		tape->next->prev = tape;
 		tape = tape->next;
 		entry = readdir(&dir);
 	}
@@ -121,16 +204,7 @@ int     ls_tsd(DIR dir, struct dirent *entry, t_ls *tape)   //take struct dirent
 	return (width);
 }
 
-int countargs(DIR dir, struct dirent *entry)		//count of objects in dir
-{
-	int     counter;
 
-	counter = (entry && *entry->d_name != '.') ? 1 : 0;
-	while (entry)
-		counter += ((entry = readdir(&dir)) && *entry->d_name != '.') ? 1 : 0;
-
-	return (counter);
-}
 
 
 

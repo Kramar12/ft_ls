@@ -42,7 +42,7 @@ t_ls    *tlsnew(void)
 		free(new);
 		return (NULL);
 	}
-	*new = (t_ls){0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	*new = (t_ls){0, 0, 0, 0, 0, 0, 0, 0, 0};
 	return (new);
 }
 
@@ -55,6 +55,6 @@ t_exls    *textlsnew(void)
 		free(new);
 		return (NULL);
 	}
-	*new = (t_exls){0, 0, 0, 1000000, 0}; //alrRt1
+	*new = (t_exls){0, 0, 0, 1000000, 0, 0}; //alrRt1
 	return (new);
 }

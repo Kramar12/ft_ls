@@ -129,28 +129,52 @@ CMakeFiles/ft_ls.dir/main.c.o.provides: CMakeFiles/ft_ls.dir/main.c.o.requires
 CMakeFiles/ft_ls.dir/main.c.o.provides.build: CMakeFiles/ft_ls.dir/main.c.o
 
 
-CMakeFiles/ft_ls.dir/auxiliary.c.o: CMakeFiles/ft_ls.dir/flags.make
-CMakeFiles/ft_ls.dir/auxiliary.c.o: ../auxiliary.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ariabyi/CLionProjects/ft_ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/ft_ls.dir/auxiliary.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ft_ls.dir/auxiliary.c.o   -c /Users/ariabyi/CLionProjects/ft_ls/auxiliary.c
+CMakeFiles/ft_ls.dir/mauxiliary.c.o: CMakeFiles/ft_ls.dir/flags.make
+CMakeFiles/ft_ls.dir/mauxiliary.c.o: ../mauxiliary.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ariabyi/CLionProjects/ft_ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/ft_ls.dir/mauxiliary.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ft_ls.dir/mauxiliary.c.o   -c /Users/ariabyi/CLionProjects/ft_ls/mauxiliary.c
 
-CMakeFiles/ft_ls.dir/auxiliary.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ft_ls.dir/auxiliary.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ariabyi/CLionProjects/ft_ls/auxiliary.c > CMakeFiles/ft_ls.dir/auxiliary.c.i
+CMakeFiles/ft_ls.dir/mauxiliary.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ft_ls.dir/mauxiliary.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ariabyi/CLionProjects/ft_ls/mauxiliary.c > CMakeFiles/ft_ls.dir/mauxiliary.c.i
 
-CMakeFiles/ft_ls.dir/auxiliary.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ft_ls.dir/auxiliary.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ariabyi/CLionProjects/ft_ls/auxiliary.c -o CMakeFiles/ft_ls.dir/auxiliary.c.s
+CMakeFiles/ft_ls.dir/mauxiliary.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ft_ls.dir/mauxiliary.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ariabyi/CLionProjects/ft_ls/mauxiliary.c -o CMakeFiles/ft_ls.dir/mauxiliary.c.s
 
-CMakeFiles/ft_ls.dir/auxiliary.c.o.requires:
+CMakeFiles/ft_ls.dir/mauxiliary.c.o.requires:
 
-.PHONY : CMakeFiles/ft_ls.dir/auxiliary.c.o.requires
+.PHONY : CMakeFiles/ft_ls.dir/mauxiliary.c.o.requires
 
-CMakeFiles/ft_ls.dir/auxiliary.c.o.provides: CMakeFiles/ft_ls.dir/auxiliary.c.o.requires
-	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/auxiliary.c.o.provides.build
-.PHONY : CMakeFiles/ft_ls.dir/auxiliary.c.o.provides
+CMakeFiles/ft_ls.dir/mauxiliary.c.o.provides: CMakeFiles/ft_ls.dir/mauxiliary.c.o.requires
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/mauxiliary.c.o.provides.build
+.PHONY : CMakeFiles/ft_ls.dir/mauxiliary.c.o.provides
 
-CMakeFiles/ft_ls.dir/auxiliary.c.o.provides.build: CMakeFiles/ft_ls.dir/auxiliary.c.o
+CMakeFiles/ft_ls.dir/mauxiliary.c.o.provides.build: CMakeFiles/ft_ls.dir/mauxiliary.c.o
+
+
+CMakeFiles/ft_ls.dir/rightstypes.c.o: CMakeFiles/ft_ls.dir/flags.make
+CMakeFiles/ft_ls.dir/rightstypes.c.o: ../rightstypes.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/ariabyi/CLionProjects/ft_ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/ft_ls.dir/rightstypes.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ft_ls.dir/rightstypes.c.o   -c /Users/ariabyi/CLionProjects/ft_ls/rightstypes.c
+
+CMakeFiles/ft_ls.dir/rightstypes.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ft_ls.dir/rightstypes.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ariabyi/CLionProjects/ft_ls/rightstypes.c > CMakeFiles/ft_ls.dir/rightstypes.c.i
+
+CMakeFiles/ft_ls.dir/rightstypes.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ft_ls.dir/rightstypes.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ariabyi/CLionProjects/ft_ls/rightstypes.c -o CMakeFiles/ft_ls.dir/rightstypes.c.s
+
+CMakeFiles/ft_ls.dir/rightstypes.c.o.requires:
+
+.PHONY : CMakeFiles/ft_ls.dir/rightstypes.c.o.requires
+
+CMakeFiles/ft_ls.dir/rightstypes.c.o.provides: CMakeFiles/ft_ls.dir/rightstypes.c.o.requires
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/rightstypes.c.o.provides.build
+.PHONY : CMakeFiles/ft_ls.dir/rightstypes.c.o.provides
+
+CMakeFiles/ft_ls.dir/rightstypes.c.o.provides.build: CMakeFiles/ft_ls.dir/rightstypes.c.o
 
 
 # Object files for target ft_ls
@@ -158,7 +182,8 @@ ft_ls_OBJECTS = \
 "CMakeFiles/ft_ls.dir/ft_ls.c.o" \
 "CMakeFiles/ft_ls.dir/major.c.o" \
 "CMakeFiles/ft_ls.dir/main.c.o" \
-"CMakeFiles/ft_ls.dir/auxiliary.c.o"
+"CMakeFiles/ft_ls.dir/mauxiliary.c.o" \
+"CMakeFiles/ft_ls.dir/rightstypes.c.o"
 
 # External object files for target ft_ls
 ft_ls_EXTERNAL_OBJECTS =
@@ -166,10 +191,11 @@ ft_ls_EXTERNAL_OBJECTS =
 ft_ls: CMakeFiles/ft_ls.dir/ft_ls.c.o
 ft_ls: CMakeFiles/ft_ls.dir/major.c.o
 ft_ls: CMakeFiles/ft_ls.dir/main.c.o
-ft_ls: CMakeFiles/ft_ls.dir/auxiliary.c.o
+ft_ls: CMakeFiles/ft_ls.dir/mauxiliary.c.o
+ft_ls: CMakeFiles/ft_ls.dir/rightstypes.c.o
 ft_ls: CMakeFiles/ft_ls.dir/build.make
 ft_ls: CMakeFiles/ft_ls.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ariabyi/CLionProjects/ft_ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable ft_ls"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/ariabyi/CLionProjects/ft_ls/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable ft_ls"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ft_ls.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -180,7 +206,8 @@ CMakeFiles/ft_ls.dir/build: ft_ls
 CMakeFiles/ft_ls.dir/requires: CMakeFiles/ft_ls.dir/ft_ls.c.o.requires
 CMakeFiles/ft_ls.dir/requires: CMakeFiles/ft_ls.dir/major.c.o.requires
 CMakeFiles/ft_ls.dir/requires: CMakeFiles/ft_ls.dir/main.c.o.requires
-CMakeFiles/ft_ls.dir/requires: CMakeFiles/ft_ls.dir/auxiliary.c.o.requires
+CMakeFiles/ft_ls.dir/requires: CMakeFiles/ft_ls.dir/mauxiliary.c.o.requires
+CMakeFiles/ft_ls.dir/requires: CMakeFiles/ft_ls.dir/rightstypes.c.o.requires
 
 .PHONY : CMakeFiles/ft_ls.dir/requires
 

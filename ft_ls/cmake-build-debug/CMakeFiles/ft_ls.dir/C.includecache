@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/ariabyi/CLionProjects/ft_ls/auxiliary.c
-ft_ls.h
-/Users/ariabyi/CLionProjects/ft_ls/ft_ls.h
-
 /Users/ariabyi/CLionProjects/ft_ls/ft_ls.c
 
 /Users/ariabyi/CLionProjects/ft_ls/ft_ls.h
@@ -47,6 +43,8 @@ sys/ioctl.h
 -
 stdarg.h
 -
+grp.h
+-
 ft_printf.h
 /Users/ariabyi/CLionProjects/ft_ls/ft_printf.h
 
@@ -56,6 +54,14 @@ libft/libft.h
 stdarg.h
 -
 
+/Users/ariabyi/CLionProjects/ft_ls/libft/ft_memalloc.c
+libft.h
+/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
+
+/Users/ariabyi/CLionProjects/ft_ls/libft/ft_memset.c
+libft.h
+/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
+
 /Users/ariabyi/CLionProjects/ft_ls/libft/ft_strcmp.c
 libft.h
 /Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
@@ -64,7 +70,15 @@ libft.h
 libft.h
 /Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
 
+/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strjoin.c
+libft.h
+/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
+
 /Users/ariabyi/CLionProjects/ft_ls/libft/ft_strlen.c
+libft.h
+/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
+
+/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strsub.c
 libft.h
 /Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
 
@@ -91,4 +105,20 @@ libft/ft_strdup.c
 /Users/ariabyi/CLionProjects/ft_ls/libft/ft_strdup.c
 libft/ft_strcmp.c
 /Users/ariabyi/CLionProjects/ft_ls/libft/ft_strcmp.c
+libft/ft_strjoin.c
+/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strjoin.c
+libft/ft_strsub.c
+/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strsub.c
+libft/ft_memalloc.c
+/Users/ariabyi/CLionProjects/ft_ls/libft/ft_memalloc.c
+libft/ft_memset.c
+/Users/ariabyi/CLionProjects/ft_ls/libft/ft_memset.c
+
+/Users/ariabyi/CLionProjects/ft_ls/mauxiliary.c
+ft_ls.h
+/Users/ariabyi/CLionProjects/ft_ls/ft_ls.h
+
+/Users/ariabyi/CLionProjects/ft_ls/rightstypes.c
+ft_ls.h
+/Users/ariabyi/CLionProjects/ft_ls/ft_ls.h
 

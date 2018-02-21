@@ -2,7 +2,7 @@
 
 int main(int ac, char **av)
 {
-	ft_ls(av);
+	ft_ls(++av);
 
 
 

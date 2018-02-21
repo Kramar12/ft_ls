@@ -123,33 +123,6 @@ ft_ls/fast:
 	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/build
 .PHONY : ft_ls/fast
 
-auxiliary.o: auxiliary.c.o
-
-.PHONY : auxiliary.o
-
-# target to build an object file
-auxiliary.c.o:
-	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/auxiliary.c.o
-.PHONY : auxiliary.c.o
-
-auxiliary.i: auxiliary.c.i
-
-.PHONY : auxiliary.i
-
-# target to preprocess a source file
-auxiliary.c.i:
-	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/auxiliary.c.i
-.PHONY : auxiliary.c.i
-
-auxiliary.s: auxiliary.c.s
-
-.PHONY : auxiliary.s
-
-# target to generate assembly for a file
-auxiliary.c.s:
-	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/auxiliary.c.s
-.PHONY : auxiliary.c.s
-
 ft_ls.o: ft_ls.c.o
 
 .PHONY : ft_ls.o
@@ -231,6 +204,60 @@ major.c.s:
 	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/major.c.s
 .PHONY : major.c.s
 
+mauxiliary.o: mauxiliary.c.o
+
+.PHONY : mauxiliary.o
+
+# target to build an object file
+mauxiliary.c.o:
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/mauxiliary.c.o
+.PHONY : mauxiliary.c.o
+
+mauxiliary.i: mauxiliary.c.i
+
+.PHONY : mauxiliary.i
+
+# target to preprocess a source file
+mauxiliary.c.i:
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/mauxiliary.c.i
+.PHONY : mauxiliary.c.i
+
+mauxiliary.s: mauxiliary.c.s
+
+.PHONY : mauxiliary.s
+
+# target to generate assembly for a file
+mauxiliary.c.s:
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/mauxiliary.c.s
+.PHONY : mauxiliary.c.s
+
+rightstypes.o: rightstypes.c.o
+
+.PHONY : rightstypes.o
+
+# target to build an object file
+rightstypes.c.o:
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/rightstypes.c.o
+.PHONY : rightstypes.c.o
+
+rightstypes.i: rightstypes.c.i
+
+.PHONY : rightstypes.i
+
+# target to preprocess a source file
+rightstypes.c.i:
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/rightstypes.c.i
+.PHONY : rightstypes.c.i
+
+rightstypes.s: rightstypes.c.s
+
+.PHONY : rightstypes.s
+
+# target to generate assembly for a file
+rightstypes.c.s:
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/rightstypes.c.s
+.PHONY : rightstypes.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -240,9 +267,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... ft_ls"
-	@echo "... auxiliary.o"
-	@echo "... auxiliary.i"
-	@echo "... auxiliary.s"
 	@echo "... ft_ls.o"
 	@echo "... ft_ls.i"
 	@echo "... ft_ls.s"
@@ -252,6 +276,12 @@ help:
 	@echo "... major.o"
 	@echo "... major.i"
 	@echo "... major.s"
+	@echo "... mauxiliary.o"
+	@echo "... mauxiliary.i"
+	@echo "... mauxiliary.s"
+	@echo "... rightstypes.o"
+	@echo "... rightstypes.i"
+	@echo "... rightstypes.s"
 .PHONY : help
 
 

@@ -18,6 +18,7 @@
 # include <errno.h>     //do i need this?
 # include <sys/ioctl.h>
 # include <stdarg.h>
+#include <grp.h>
 
 
 #include "ft_printf.h"
@@ -34,7 +35,7 @@ typedef struct      s_ls
 	size_t          tstmp;
 
 	struct  s_ls    *next;
-	struct	s_ls	*prev;
+	//struct	s_ls	*prev;
 }                   t_ls;
 
 typedef struct      s_exls
@@ -43,6 +44,7 @@ typedef struct      s_exls
 	int             wscol;
 	int             cword;
 	int 			flags;
+	char 			*dest;
 
 	struct  t_exls  *next;
 }                   t_exls;
@@ -58,6 +60,12 @@ int                 ls_tsd(DIR dir, struct dirent *entry, t_ls *tape);
 t_exls              *textlsnew(void);
 t_ls 				*ls_sl(t_ls *root);
 int bhavachakra(char *av);
-t_ls    *ls_vert(t_ls *root, t_exls *ext);
+void ls_rec(const char *name);
+void	ls_whip(const char *dest, DIR *dir, struct dirent *entry);
+void	ls_lpr(t_ls *root, t_exls *ext, struct dirent *entry);
+void	ls_rights(char *name);
+void	ls_prrgh(int kat);
+void	ls_pr_type(int type);
+
 
 #endif

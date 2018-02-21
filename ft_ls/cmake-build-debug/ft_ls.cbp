@@ -80,9 +80,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/ariabyi/CLionProjects/ft_ls/auxiliary.c">
-			<Option target="ft_ls"/>
-		</Unit>
 		<Unit filename="/Users/ariabyi/CLionProjects/ft_ls/ft_ls.c">
 			<Option target="ft_ls"/>
 		</Unit>
@@ -93,6 +90,12 @@
 			<Option target="ft_ls"/>
 		</Unit>
 		<Unit filename="/Users/ariabyi/CLionProjects/ft_ls/major.c">
+			<Option target="ft_ls"/>
+		</Unit>
+		<Unit filename="/Users/ariabyi/CLionProjects/ft_ls/mauxiliary.c">
+			<Option target="ft_ls"/>
+		</Unit>
+		<Unit filename="/Users/ariabyi/CLionProjects/ft_ls/rightstypes.c">
 			<Option target="ft_ls"/>
 		</Unit>
 		<Unit filename="/Users/ariabyi/CLionProjects/ft_ls/CMakeLists.txt">
