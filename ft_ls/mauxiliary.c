@@ -1,22 +1,24 @@
 #include "ft_ls.h"
 
 
-int     ls_tkfls(t_exls *ext, char **av)
+int     ls_tkfls(int flags, char **av)
 {
 	*av++;
-	if (**av == '-' && (*av)++)
+	if (*av && **av == '-' && (*av)++)
 		while (**av)
 		{
-			if (**av == 'l' && (!((ext->flags / 1) % 2)))
-				*av = (ext->flags += 1) ? ++(*av) : *av;
-			if (**av == 'a' && (!((ext->flags / 10) % 2)))
-				*av = (ext->flags += 10) ? ++(*av) : *av;
-			if (**av == 'r' && (!((ext->flags / 100) % 2)))
-				*av = (ext->flags += 100) ? ++(*av) : *av;
-			if (**av == 'R' && (!((ext->flags / 1000) % 2)))
-				*av = (ext->flags += 1000) ? ++(*av) : *av;
-			if (**av == 't' && (!((ext->flags / 10000) % 2)))
-				*av = (ext->flags += 10000) ? ++(*av) : *av;
+			if (**av == 'l' && (!((flags / 1) % 2)))
+				*av = (flags += 1) ? ++(*av) : *av;
+			else if (**av == 'a' && (!((flags / 10) % 2)))
+				*av = (flags += 10) ? ++(*av) : *av;
+			else if (**av == 'r' && (!((flags / 100) % 2)))
+				*av = (flags += 100) ? ++(*av) : *av;
+			else if (**av == 'R' && (!((flags / 1000) % 2)))
+				*av = (flags += 1000) ? ++(*av) : *av;
+			else if (**av == 't' && (!((flags / 10000) % 2)))
+				*av = (flags += 10000) ? ++(*av) : *av;
+			else
+				ls_errors(*av, 1);
 			if (!**av)
 			{
 				*av++;
@@ -26,9 +28,8 @@ int     ls_tkfls(t_exls *ext, char **av)
 					(*av)++;
 			}
 		}
-	while (**av != '.')
-		*av--;
-	return (0);
+
+	return (flags);
 }
 
 
@@ -55,6 +56,6 @@ t_exls    *textlsnew(void)
 		free(new);
 		return (NULL);
 	}
-	*new = (t_exls){0, 0, 0, 1000000, 0, 0}; //alrRt1
+	*new = (t_exls){0, 0, 0, 1000000, 0, 0, 0, 0, 0, 0}; //alrRt1
 	return (new);
 }

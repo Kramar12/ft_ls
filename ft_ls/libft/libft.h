@@ -6,7 +6,7 @@
 /*   By: ariabyi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 14:18:27 by ariabyi           #+#    #+#             */
-/*   Updated: 2018/02/08 18:40:34 by ariabyi          ###   ########.fr       */
+/*   Updated: 2018/02/22 15:33:28 by ariabyi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ int					ft_printhex(size_t num, int base, int counter, char x);
 size_t				ft_strpos(const char *s, int c);
 int					ft_sqrt(unsigned int num);
 char				*ft_margin(char *pen, char *apple);
+short int			ft_pwrbase(ssize_t num, int base);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ariabyi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 14:18:27 by ariabyi           #+#    #+#             */
-/*   Updated: 2018/02/08 18:41:12 by ariabyi          ###   ########.fr       */
+/*   Updated: 2018/02/22 15:33:28 by ariabyi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <string.h>
 
-typedef struct		s_list
+typedef	struct		s_list
 {
 	void			*content;
 	size_t			content_size;
@@ -46,13 +46,13 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				ft_memdel(void **ap);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memset(void *b, int c, size_t len);
-void				ft_putchar(int c);
+int					ft_putchar(int c);
 void				ft_putchar_fd(int c, int fd);
 void				ft_putendl(char const *s);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr(ssize_t n);
 void				ft_putnbr_fd(int n, int fd);
-void				ft_putstr(char const *s);
+int					ft_putstr(char const *s);
 void				ft_putstr_fd(char const *s, int fd);
 char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strchr(const char *s, int c);
@@ -91,9 +91,10 @@ void				ft_swap(int *a, int *b);
 void				ft_printbits(unsigned long long num);
 int					ft_numodgt(long long n);
 int					ft_numows(char const *s, char c);
-void				ft_printhex(size_t num, char x, int base);
+int					ft_printhex(size_t num, int base, int counter, char x);
 size_t				ft_strpos(const char *s, int c);
 int					ft_sqrt(unsigned int num);
 char				*ft_margin(char *pen, char *apple);
+short int			ft_pwrbase(ssize_t num, int base);
 
 #endif

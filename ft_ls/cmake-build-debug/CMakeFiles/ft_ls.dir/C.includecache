@@ -11,6 +11,8 @@
 /Users/ariabyi/CLionProjects/ft_ls/ft_ls.h
 libft/libft.h
 /Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
+ft_printf/ft_printf.h
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/ft_printf.h
 unistd.h
 -
 stdlib.h
@@ -45,6 +47,8 @@ stdarg.h
 -
 grp.h
 -
+sys/acl.h
+-
 ft_printf.h
 /Users/ariabyi/CLionProjects/ft_ls/ft_printf.h
 
@@ -54,33 +58,11 @@ libft/libft.h
 stdarg.h
 -
 
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_memalloc.c
-libft.h
-/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
-
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_memset.c
-libft.h
-/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
-
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strcmp.c
-libft.h
-/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
-
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strdup.c
-libft.h
-/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
-
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strjoin.c
-libft.h
-/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
-
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strlen.c
-libft.h
-/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
-
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strsub.c
-libft.h
-/Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/ft_printf.h
+libft/libft.h
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/libft/libft.h
+stdarg.h
+-
 
 /Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
 unistd.h
@@ -99,20 +81,6 @@ dirent.h
 -
 ft_ls.h
 /Users/ariabyi/CLionProjects/ft_ls/ft_ls.h
-libft/ft_strlen.c
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strlen.c
-libft/ft_strdup.c
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strdup.c
-libft/ft_strcmp.c
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strcmp.c
-libft/ft_strjoin.c
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strjoin.c
-libft/ft_strsub.c
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_strsub.c
-libft/ft_memalloc.c
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_memalloc.c
-libft/ft_memset.c
-/Users/ariabyi/CLionProjects/ft_ls/libft/ft_memset.c
 
 /Users/ariabyi/CLionProjects/ft_ls/mauxiliary.c
 ft_ls.h
