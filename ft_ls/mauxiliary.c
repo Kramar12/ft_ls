@@ -17,18 +17,21 @@ int     ls_tkfls(int flags, char **av)
 				*av = (flags += 1000) ? ++(*av) : *av;
 			else if (**av == 't' && (!((flags / 10000) % 2)))
 				*av = (flags += 10000) ? ++(*av) : *av;
+			else if (**av == 's' && (!((flags / 100000) % 2)))
+				*av = (flags += 100000) ? ++(*av) : *av;
+			else if (**av == '1' && (!((flags / 1000000) % 2)))
+				*av = (flags += 1000000) ? ++(*av) : *av;
 			else
 				ls_errors(*av, 1);
 			if (!**av)
 			{
 				*av++;
-				if (**av != '-')
+				if (!*av || **av != '-')
 					break ;
 				else
 					(*av)++;
 			}
 		}
-
 	return (flags);
 }
 
@@ -56,6 +59,6 @@ t_exls    *textlsnew(void)
 		free(new);
 		return (NULL);
 	}
-	*new = (t_exls){0, 0, 0, 1000000, 0, 0, 0, 0, 0, 0}; //alrRt1
+	*new = (t_exls){0, 0, 0, 1000000, 0, 0, 0, 0, 0, 0, 0}; //alrRt1
 	return (new);
 }

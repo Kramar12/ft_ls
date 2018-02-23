@@ -37,7 +37,7 @@ typedef struct      s_ls
 	size_t          tstmp;
 
 	struct  s_ls    *next;
-	//struct	s_ls	*prev;
+	struct	s_ls	*prev;
 }                   t_ls;
 
 typedef struct      s_exls
@@ -51,7 +51,7 @@ typedef struct      s_exls
 	int             lenowner;
 	int             lengroup;
 	int             lensize;
-
+	int 			total;
 	struct  t_exls  *next;
 }                   t_exls;
 
@@ -64,16 +64,18 @@ int     ls_tkfls(int flags, char **av);
 t_ls                *tlsnew(void);
 int                 ls_tsd(DIR dir, struct dirent *entry, t_ls *tape);
 t_exls              *textlsnew(void);
-t_ls 				*ls_sl(t_ls *root);
+t_ls 	*ls_sl(t_ls *root);
 int     bhavachakra(char *av);
 void    ls_rec(const char *name, int flags);
 void	ls_whip(const char *dest, DIR *dir, struct dirent *entry, int flags);
 void	ls_lpr(t_ls *root, t_exls *ext, struct dirent *entry);
-void	ls_rights(char *name);
-void	ls_pr_type(int type);
+void	ls_rights(char *name, int type, int flags);
+void	ls_pr_type(int type, int flags, int blocks);
 void    ls_getwidth(t_ls *root, t_exls *ext, char *place, ssize_t xattr);
-void    get_time(char *place, ssize_t xattr, t_exls *ext);
+void    get_time(char *place, ssize_t xattr, t_exls *ext, char *name);
 void    ls_errors(char *way, int code);
-
+t_ls 	*ls_sl_t(t_ls **root);
+void 	*ls_sl_r(t_ls **root);
+char    *ls_takeway(char **av);
 
 #endif

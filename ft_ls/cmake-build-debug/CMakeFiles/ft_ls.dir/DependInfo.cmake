@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/ariabyi/CLionProjects/ft_ls/ft_ls.c" "/Users/ariabyi/CLionProjects/ft_ls/cmake-build-debug/CMakeFiles/ft_ls.dir/ft_ls.c.o"
+  "/Users/ariabyi/CLionProjects/ft_ls/ls_sorts.c" "/Users/ariabyi/CLionProjects/ft_ls/cmake-build-debug/CMakeFiles/ft_ls.dir/ls_sorts.c.o"
   "/Users/ariabyi/CLionProjects/ft_ls/main.c" "/Users/ariabyi/CLionProjects/ft_ls/cmake-build-debug/CMakeFiles/ft_ls.dir/main.c.o"
   "/Users/ariabyi/CLionProjects/ft_ls/major.c" "/Users/ariabyi/CLionProjects/ft_ls/cmake-build-debug/CMakeFiles/ft_ls.dir/major.c.o"
   "/Users/ariabyi/CLionProjects/ft_ls/mauxiliary.c" "/Users/ariabyi/CLionProjects/ft_ls/cmake-build-debug/CMakeFiles/ft_ls.dir/mauxiliary.c.o"

@@ -150,6 +150,33 @@ ft_ls.c.s:
 	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/ft_ls.c.s
 .PHONY : ft_ls.c.s
 
+ls_sorts.o: ls_sorts.c.o
+
+.PHONY : ls_sorts.o
+
+# target to build an object file
+ls_sorts.c.o:
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/ls_sorts.c.o
+.PHONY : ls_sorts.c.o
+
+ls_sorts.i: ls_sorts.c.i
+
+.PHONY : ls_sorts.i
+
+# target to preprocess a source file
+ls_sorts.c.i:
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/ls_sorts.c.i
+.PHONY : ls_sorts.c.i
+
+ls_sorts.s: ls_sorts.c.s
+
+.PHONY : ls_sorts.s
+
+# target to generate assembly for a file
+ls_sorts.c.s:
+	$(MAKE) -f CMakeFiles/ft_ls.dir/build.make CMakeFiles/ft_ls.dir/ls_sorts.c.s
+.PHONY : ls_sorts.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -270,6 +297,9 @@ help:
 	@echo "... ft_ls.o"
 	@echo "... ft_ls.i"
 	@echo "... ft_ls.s"
+	@echo "... ls_sorts.o"
+	@echo "... ls_sorts.i"
+	@echo "... ls_sorts.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -3,10 +3,20 @@
 
 CMakeFiles/ft_ls.dir/ft_ls.c.o
  /Users/ariabyi/CLionProjects/ft_ls/ft_ls.c
-CMakeFiles/ft_ls.dir/main.c.o
+CMakeFiles/ft_ls.dir/ls_sorts.c.o
  /Users/ariabyi/CLionProjects/ft_ls/ft_ls.h
  /Users/ariabyi/CLionProjects/ft_ls/ft_printf.h
  /Users/ariabyi/CLionProjects/ft_ls/ft_printf/ft_printf.h
+ /Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
+ /Users/ariabyi/CLionProjects/ft_ls/ls_sorts.c
+CMakeFiles/ft_ls.dir/main.c.o
+ /Users/ariabyi/CLionProjects/ft_ls/ft_ls.h
+ /Users/ariabyi/CLionProjects/ft_ls/ft_printf.h
+ /Users/ariabyi/CLionProjects/ft_ls/ft_printf/auxiliary.c
+ /Users/ariabyi/CLionProjects/ft_ls/ft_printf/ft_printf.h
+ /Users/ariabyi/CLionProjects/ft_ls/ft_printf/num_flags.c
+ /Users/ariabyi/CLionProjects/ft_ls/ft_printf/printhex.c
+ /Users/ariabyi/CLionProjects/ft_ls/ft_printf/procwidth.c
  /Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
  /Users/ariabyi/CLionProjects/ft_ls/main.c
 CMakeFiles/ft_ls.dir/major.c.o

@@ -3,9 +3,19 @@
 
 CMakeFiles/ft_ls.dir/ft_ls.c.o: ../ft_ls.c
 
+CMakeFiles/ft_ls.dir/ls_sorts.c.o: ../ft_ls.h
+CMakeFiles/ft_ls.dir/ls_sorts.c.o: ../ft_printf.h
+CMakeFiles/ft_ls.dir/ls_sorts.c.o: ../ft_printf/ft_printf.h
+CMakeFiles/ft_ls.dir/ls_sorts.c.o: ../libft/libft.h
+CMakeFiles/ft_ls.dir/ls_sorts.c.o: ../ls_sorts.c
+
 CMakeFiles/ft_ls.dir/main.c.o: ../ft_ls.h
 CMakeFiles/ft_ls.dir/main.c.o: ../ft_printf.h
+CMakeFiles/ft_ls.dir/main.c.o: ../ft_printf/auxiliary.c
 CMakeFiles/ft_ls.dir/main.c.o: ../ft_printf/ft_printf.h
+CMakeFiles/ft_ls.dir/main.c.o: ../ft_printf/num_flags.c
+CMakeFiles/ft_ls.dir/main.c.o: ../ft_printf/printhex.c
+CMakeFiles/ft_ls.dir/main.c.o: ../ft_printf/procwidth.c
 CMakeFiles/ft_ls.dir/main.c.o: ../libft/libft.h
 CMakeFiles/ft_ls.dir/main.c.o: ../main.c
 

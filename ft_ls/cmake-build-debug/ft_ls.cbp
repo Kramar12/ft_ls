@@ -86,6 +86,9 @@
 		<Unit filename="/Users/ariabyi/CLionProjects/ft_ls/ft_ls.h">
 			<Option target="ft_ls"/>
 		</Unit>
+		<Unit filename="/Users/ariabyi/CLionProjects/ft_ls/ls_sorts.c">
+			<Option target="ft_ls"/>
+		</Unit>
 		<Unit filename="/Users/ariabyi/CLionProjects/ft_ls/main.c">
 			<Option target="ft_ls"/>
 		</Unit>

@@ -58,11 +58,27 @@ libft/libft.h
 stdarg.h
 -
 
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/auxiliary.c
+ft_printf.h
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/ft_printf.h
+
 /Users/ariabyi/CLionProjects/ft_ls/ft_printf/ft_printf.h
 libft/libft.h
 /Users/ariabyi/CLionProjects/ft_ls/ft_printf/libft/libft.h
 stdarg.h
 -
+
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/num_flags.c
+ft_printf.h
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/ft_printf.h
+
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/printhex.c
+ft_printf.h
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/ft_printf.h
+
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/procwidth.c
+ft_printf.h
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/ft_printf.h
 
 /Users/ariabyi/CLionProjects/ft_ls/libft/libft.h
 unistd.h
@@ -72,9 +88,21 @@ stdlib.h
 string.h
 -
 
+/Users/ariabyi/CLionProjects/ft_ls/ls_sorts.c
+ft_ls.h
+/Users/ariabyi/CLionProjects/ft_ls/ft_ls.h
+
 /Users/ariabyi/CLionProjects/ft_ls/main.c
 ft_ls.h
 /Users/ariabyi/CLionProjects/ft_ls/ft_ls.h
+ft_printf/num_flags.c
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/num_flags.c
+ft_printf/printhex.c
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/printhex.c
+ft_printf/procwidth.c
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/procwidth.c
+ft_printf/auxiliary.c
+/Users/ariabyi/CLionProjects/ft_ls/ft_printf/auxiliary.c
 
 /Users/ariabyi/CLionProjects/ft_ls/major.c
 dirent.h

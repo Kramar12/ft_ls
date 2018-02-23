@@ -41,7 +41,7 @@ short int			ft_power(ssize_t num, int base)
 	counter = 1;
 	if (num < 0 || base < 0)
 		counter++;
-	if (num == base)
+	if (num == base && base == 1)
 		return (counter);
 	while ((num /= base))
 		counter++;

@@ -1,6 +1,27 @@
 #include <dirent.h>
 #include "ft_ls.h"
 
+int             ft_ls(char **av)    // s flagom t dlina kajdogo po 12
+{
+	int flags;
+	DIR *dir;
+	struct dirent *entry;
+	char *way;
+
+	way = ls_takeway(av);
+	flags = ls_tkfls(10000000, av);
+
+	if (!(dir = way ? opendir(way) : opendir("./")))
+		ls_errors(way, 0);
+	entry = readdir(dir);
+
+	ls_whip(way, dir, entry, flags);
+	if (flags / 1000 % 2)
+		ls_rec(way, flags);
+	closedir(dir);
+	return (0);
+}
+
 char    *ls_takeway(char **av)
 {
 	char *way;
@@ -20,7 +41,7 @@ void    ls_errors(char *way, int code)
 {
 	if (code == 0)
 	{
-		ft_printf("ls: %s: No such file or directory", ft_strsub(way, 2, (ft_strlen(way) - 3)));
+		ft_printf("ls: %s: No such file or directory", ft_strsub(way, 0, (ft_strlen(way) - 1)));
 		exit (0);
 	}
 	if (code == 1)
@@ -30,38 +51,21 @@ void    ls_errors(char *way, int code)
 	}
 }
 
-int             ft_ls(char **av)    // s flagom t dlina kajdogo po 12
-{
-	int flags;
-	DIR *dir;
-	struct dirent *entry;
-	char *way;
 
-	way = ls_takeway(av);
-	flags = ls_tkfls(100000, av);
-
-	if (!(dir = way ? opendir(way) : opendir("./")))
-		ls_errors(way, 0);
-	entry = readdir(dir);
-
-	ls_whip(way, dir, entry, flags);
-	if (flags / 1000 % 2)
-		ls_rec(way, flags);
-	closedir(dir);
-	return (0);
-}
-
-void    get_time(char *place, ssize_t xattr, t_exls *ext)
+void    get_time(char *place, ssize_t xattr, t_exls *ext, char *name)
 {
 	struct passwd *pw;
 	struct group  *gr;
 	struct stat sb;
 	acl_t acl;
 	acl_entry_t dummy;
+	char *buff;
 
-	stat(place, &sb);
+	lstat(place, &sb);
+	if (!(buff = NULL) && (readlink(place, buff, 1024) != -1))
+		name = ft_strjoin(ft_strjoin(name, " -> "), buff);
 	if ((acl = acl_get_link_np(place, ACL_TYPE_EXTENDED))
-	    && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1)
+	    && acl_get_entry(acl, ACL_FIRST_ENTRY, &dummy) == -1) // properly i can switch dummy with NULL
 	{
 		acl_free(acl);
 		acl = NULL;
@@ -76,11 +80,12 @@ void    get_time(char *place, ssize_t xattr, t_exls *ext)
 		ft_printf(" ");
 	pw  = getpwuid(sb.st_uid);
 	gr = getgrgid(sb.st_gid);
-	ft_printf(" %*d", ext->lenlinks, sb.st_nlink);
+	ft_printf("%*d", ext->lenlinks + 1, sb.st_nlink);
 	ft_printf(" %-*s\t", ext->lenowner, pw->pw_name);
 	ft_printf("%-*s ", ext->lengroup, gr->gr_name);
 	ft_printf("%*zu ",ext->lensize, sb.st_size);
 	ft_printf("%s ",ft_strsub(ctime(&sb.st_mtimespec), 4, 12));
+	ft_printf("%s", name);
 	acl_free(acl);
 }
 
@@ -90,7 +95,10 @@ void	ls_whip(const char *dest, DIR *dir, struct dirent *entry, int flags)
 	t_exls *ext;
 	struct winsize w;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+
 	w.ws_col = 136;
+	if (flags / 1000000 % 2)
+		w.ws_col = 0;
 
 	if (!(dir = dest ? opendir(dest) : opendir("./")))
 	{
@@ -107,6 +115,10 @@ void	ls_whip(const char *dest, DIR *dir, struct dirent *entry, int flags)
 	ext->flags = flags;
 	tape = ls_sl(tape);
 
+	if (flags / 100 % 2)
+		ls_sl_r(&tape);
+	if (flags / 10000 % 2)
+		tape = ls_sl_t(tape);
 	if (ext->flags % 2)
 		ls_lpr(tape, ext, entry);
 	else
@@ -117,24 +129,22 @@ void	ls_whip(const char *dest, DIR *dir, struct dirent *entry, int flags)
 void	ls_lpr(t_ls *root, t_exls *ext, struct dirent *entry)
 {
 	char    *dest;
-	int     kat;
 
-	kat = 0;
 	ls_getwidth(root, ext, ft_strjoin(ext->dest, root->nm), 0);
-	ft_printf("total %d", 0);
+	ft_printf("total %d", ext->total);
 	while (root)
 	{
 		if (root->nm && (*root->nm != '.' || ((ext->flags / 10) % 2)))
 		{
-			dest = ft_strjoin(ext->dest, "/");
-			dest = ft_strjoin(dest, root->nm);
-			ls_pr_type(root->tp);
-			ls_rights(dest);
-			get_time(dest, 0, ext);
-			ft_printf("%s", root->nm);
+//			dest = ft_strjoin(ext->dest, "/");
+//			dest = ft_strjoin(dest, root->nm);
+			dest = ft_strjoin(ext->dest, root->nm);
+			ls_rights(dest,root->tp, ext->flags);
+			get_time(dest, 0, ext, root->nm);
 		}
 		root = root->next;
 	}
+	write(1, "\n\n", 2);
 }
 
 void    ls_getwidth(t_ls *root, t_exls *ext, char *placeq, ssize_t xattr)
@@ -147,9 +157,10 @@ void    ls_getwidth(t_ls *root, t_exls *ext, char *placeq, ssize_t xattr)
 	while (root)
 	{
 		place = *root->nm != '.' ? ft_strjoin(ext->dest, root->nm) : ft_strdup(ext->dest);
-		stat(place, &sb);
+		lstat(place, &sb);
 		pw = getpwuid(sb.st_uid);
 		gr = getgrgid(sb.st_gid);
+		ext->total += sb.st_blocks;
 		ext->lenlinks = ft_pwrbase(sb.st_nlink, 10) > ext->lenlinks ? ft_pwrbase(sb.st_nlink, 10) : ext->lenlinks;
 		ext->lenowner = ft_strlen(pw->pw_name) > ext->lenowner ? (int) (ft_strlen(pw->pw_name)) : ext->lenowner;
 		ext->lengroup = ft_strlen(gr->gr_name) > ext->lengroup ? (int) (ft_strlen(gr->gr_name)) : ext->lengroup;
@@ -173,13 +184,23 @@ void ls_rec(const char *name, int flags)
 				path = ft_strjoin(ft_strjoin(name, "/"), entry->d_name);
 			else
 				path = ft_strjoin(name, entry->d_name);
-			*entry->d_name != '/' ? ft_printf("%s%s:\n", name,  entry->d_name) : ft_printf("%s/%s:\n", name,  entry->d_name);
+			//*entry->d_name != '/' ? ft_printf("%s%s:\n", name,  entry->d_name) : ft_printf("%s/%s:\n", name,  entry->d_name);
+			ft_printf("%s\n", path);
 			ls_whip(path, dir, entry, flags);
 			ls_rec(path, flags);
 		}
 }
 
-void    ls_prnt(t_ls *root, t_exls *ext)
+int	ls_flag_s(char *name)
+{
+	struct stat sb;
+
+	if (lstat(name, &sb) == -1)
+		return (0);
+	return (sb.st_blocks);
+}
+
+void	ls_prnt(t_ls *root, t_exls *ext)
 {
 	int     i;
 	int 	tcword;
@@ -189,12 +210,20 @@ void    ls_prnt(t_ls *root, t_exls *ext)
 	while (++ext->wword % 8);	// there is a problem with a wide, but i forgot what the problem is
 	while (root)
 	{
+
 		if (root->nm && (*root->nm != '.' || ((ext->flags / 10) % 2)))
 		{
 			if (i + ext->wword > ext->wscol || ((i / ext->wword == ext->cword / 2 + 1 && ext->cword * ext->wword > ext->wscol)))
-				i *= ft_printf("\n%-*s", ext->wword, root->nm) ? 0 : 0;
-			else
+			{
+				if (!(ext->flags / 100000 % 2))
+					i *= ft_printf("\n%-*s", ext->wword, root->nm) ? 0 : 0;
+				else
+					i *= ft_printf("\n%d %-*s", ls_flag_s(ft_strjoin(ext->dest, root->nm)), ext->wword, root->nm) ? 0 : 0;
+			}
+			else if (!(ext->flags / 100000 % 2))
 				ft_printf("%-*s", ext->wword, root->nm);
+			else
+				ft_printf("%d %-*s", ls_flag_s(ft_strjoin(ext->dest, root->nm)), ext->wword, root->nm);
 		}
 		else
 			tcword--;
@@ -204,34 +233,7 @@ void    ls_prnt(t_ls *root, t_exls *ext)
 	write(1, "\n\n", 2);
 }
 
-t_ls 	*ls_sl(t_ls *root)	//sort list
-{
-	t_ls *new_root;
-	t_ls *node;
-	t_ls *cur;
 
-	new_root = NULL;
-	while (root != NULL)
-	{
-		node = root;
-		root = root->next;
-			if (new_root == NULL ||	(node->nm && new_root->nm && ft_strcmp(node->nm, new_root->nm) < 0))
-		{
-			node->next = new_root;
-			new_root = node;
-		}
-		else
-		{
-			cur = new_root;
-			while (cur->next != NULL && (node->nm && cur->next->nm && ft_strcmp(node->nm, cur->next->nm) >= 0))
-				cur = cur->next;
-			node->next = cur->next;
-			if (node->nm)
-				cur->next = node;
-		}
-	}
-	return (new_root);
-}
 
 
 int     ls_tsd(DIR dir, struct dirent *entry, t_ls *tape)   //take struct dirent
@@ -246,16 +248,13 @@ int     ls_tsd(DIR dir, struct dirent *entry, t_ls *tape)   //take struct dirent
 		tape->sz = dir.__dd_len;
 		width = entry->d_namlen > width ? entry->d_namlen : width;
 		tape->next = tlsnew();
+		tape->next->prev = tape;
 		tape = tape->next;
 		entry = readdir(&dir);
 	}
 
 	return (width);
 }
-
-
-
-
 
 //have to make vertical sorts, but it doesnt :c ,
 /*
