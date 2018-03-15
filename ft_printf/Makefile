@@ -1,33 +1,48 @@
-NAME=libftprintf.a
+C = clang
 
-CFLAGS=-Wall -Werror -Wextra
+NAME = libftprintf.a
 
-SRC=ft_printf.c flags.c num_flags.c printhex.c procwidth.c auxiliary.c putsymb.c
+FLAGS = -Wall -Wextra -Werror -O2
 
-OBJ=$(SRC:.c=.o)
-OBJLIBFT=libft/*.o
+LIBFT = libft
 
-HDRS=./ft_printf.h
+DIR_S = sources
+
+DIR_O = temporary
+
+HEADER = include
+
+SOURCES = ft_printf.c flags.c num_flags.c printhex.c procwidth.c auxiliary.c putsymb.c 
+SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
+
+OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	make -C ./libft -f Makefile
-	ar rc $(NAME) $(OBJ) $(OBJLIBFT)
+$(NAME): $(OBJS)
+	@make -C $(LIBFT)
+	@cp libft/libft.a ./$(NAME)
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
 
-%.o: %.c
-	gcc $(CFLAGS) -I $(HDRS) -c $< -o $@ 
+$(DIR_O)/%.o: $(DIR_S)/%.c
+	@mkdir -p temporary
+	@$(CC) $(FLAGS) -I $(HEADER) -o $@ -c $<
+
+norme:
+	norminette ./libft/
+	@echo
+	norminette ./$(HEADER)/
+	@echo
+	norminette ./$(DIR_S)/
 
 clean:
-	make -C ./libft -f Makefile fclean
-	rm -f $(OBJ)
+	@rm -f $(OBJS)
+	@rm -rf $(DIR_O)
+	@make clean -C $(LIBFT)
 
 fclean: clean
-	make -C ./libft -f Makefile fclean
-	rm -f $(NAME) 
+	@rm -f $(NAME)
+	@make fclean -C $(LIBFT)
 
 re: fclean all
-
-.PHONY: clean fclean re all
-
-.NOTPARALLEL: clean fclean re all
