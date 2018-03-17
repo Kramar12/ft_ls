@@ -26,11 +26,13 @@ char					*ls_lprhp(char *rootnm, int flags, char *exdest)
 	return (dest);
 }
 
-void					ls_lpr(t_ls *root, t_exls *ext, int code)
+void					ls_lpr(t_ls *root, t_exls *ext, int code, int flags)
 {
 	char				*dest;
 	char				*temp;
 
+	if (!(ls_getwidth(root, ext, flags)))
+		return ;
 	(ext->s) && !code ? ft_printf("total %d\n", ext->tt) : 0;
 	while (root && root->nm)
 	{
@@ -52,7 +54,7 @@ void					ls_lpr(t_ls *root, t_exls *ext, int code)
 	}
 }
 
-void					ls_prnt(t_ls *root, t_exls *ext)
+void					ls_prnt(t_ls *root, t_exls *ext, int flags)
 {
 	int					i;
 	char				*temp;
@@ -60,6 +62,7 @@ void					ls_prnt(t_ls *root, t_exls *ext)
 
 	temp = NULL;
 	place = NULL;
+	ls_getwidth(root, ext, flags);
 	while (++ext->ww % 8 || (i = 0))
 		;
 	while (root && root->nm)

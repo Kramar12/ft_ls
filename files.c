@@ -32,9 +32,9 @@ int					ft_lsot(t_ls **root, int flags)
 	if (new_root && new_root->nm)
 	{
 		if (ext->flags % 2)
-			ls_lpr(new_root, ext, 1);
+			ls_lpr(new_root, ext, 1, flags);
 		else
-			ls_prnt(new_root, ext);
+			ls_prnt(new_root, ext, flags);
 		i++;
 	}
 	ls_free(new_root, ext);

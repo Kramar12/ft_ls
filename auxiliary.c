@@ -86,15 +86,25 @@ void					ls_acl(char *place)
 char					*ls_takeway(char *av, int code)
 {
 	char				*way;
+	char				*temp;
 
 	way = NULL;
 	if (code == 1)
 	{
-		way = ft_strdup(av);
-		if (*way != '.' && *way != '/')
-			way = ft_strjoin("./", way);
-		if (way[ft_strlen(way) - 1] != '/')
-			way = ft_strjoin(way, "/");
+		temp = ft_strdup(av);
+		if (*temp != '.' && *temp != '/')
+		{
+			way = ft_strjoin("./", temp);
+			free(temp);
+			temp = ft_strdup(way);
+		}
+		if (temp[ft_strlen(temp) - 1] != '/')
+		{
+			way ? free(way) : 0;
+			way = ft_strjoin(temp, "/");
+		}
+		way = !way ? ft_strdup(av) : 0;
+		free(temp);
 	}
 	return (way);
 }

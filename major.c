@@ -71,7 +71,8 @@ int						ls_helpget(char *pl, t_exls **ext, char *rnm, int f)
 		e->lg = ft_strlen(g->gr_name) > e->lg ? ft_strlen(g->gr_name) : e->lg;
 	if ((sb.st_blksize < 0 || sb.st_rdev < 0) && !S_ISLNK(sb.st_mode))
 		return (0);
-	e->tt += sb.st_blocks;
+	e->tt += (sb.st_blksize >= 0 && sb.st_rdev >= 0) ? sb.st_blocks : 0;
+	e->tt *= (PWR(e->tt) <= 7) ? 1 : 0;
 	e->lls = PWR(sb.st_nlink) > e->lls ? PWR(sb.st_nlink) : e->lls;
 	e->lsz = PWR(sb.st_size) > e->lsz ? PWR(sb.st_size) : e->lsz;
 	e->b = PWR(sb.st_blocks) > e->b ? PWR(sb.st_blocks) : e->b;

@@ -100,11 +100,10 @@ int							newls_whip(char *way, t_ls *tape, int flags)
 		w.ws_col = 336;
 	w.ws_col *= (FLAG_1) ? 0 : 1;
 	ext = textlsnew(way, flags, w.ws_col);
-	ls_getwidth(tape, ext, flags);
 	if (ext->flags % 2)
-		ls_lpr(tape, ext, 0);
+		ls_lpr(tape, ext, 0, flags);
 	else
-		ls_prnt(tape, ext);
+		ls_prnt(tape, ext, flags);
 	if (ext)
 		ls_free(NULL, ext);
 	return (1);
