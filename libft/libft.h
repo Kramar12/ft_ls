@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <zconf.h>
+# include <stdarg.h>
 
 typedef	struct		s_list
 {

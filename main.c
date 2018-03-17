@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ariabyi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ariabyi <aleksandr.rabyj@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:10:30 by ariabyi           #+#    #+#             */
 /*   Updated: 2018/03/10 17:10:32 by ariabyi          ###   ########.fr       */
@@ -12,52 +12,12 @@
 
 #include "ft_ls.h"
 
-int				checktype(char *av, char *dest, int flags)
-{
-	int			x;
-	DIR			*fstgate;
-	FILE		*sndgate;
-	struct stat	sb;
-	char *temp;
-	char 		buff[1024];
-
-	x = 0;
-	flags--;
-	flags++;
-	if (ft_strprint(av) && *av != '~' && *av != '/')
-		temp = ft_multjoin(3, dest, "/", av);
-	else if (*av != '~' && *av != '/')
-		temp = ft_strjoin(NULL, av);
-	else
-		temp = ft_strdup(av);
-	lstat(temp, &sb);
-	if ((flags % 2) && ((readlink(temp, buff, 1024) != -1)  && !(S_ISDIR(sb.st_mode))))
-	{
-		free(temp);
-		return (2);
-		//temp = ft_strdup(buff);
-	}
-
-	x += ((fstgate = opendir(temp))) ? 1 : 0;
-	x += ((sndgate = fopen(av, "r"))) ? 2 : 0;
-	(fstgate) ? closedir(fstgate) : 0;
-	(sndgate) ? fclose(sndgate) : 0;
-
-	free(temp);
-	if ((S_ISDIR(sb.st_mode) || (x == 1 || x == 3)) || (x == 2 && access(temp, R_OK == -1)))
-		return 3; //(S_ISDIR(sb.st_mode)) ? 3 : 4
-	else if (!x)
-		return (1);
-	else
-		return (2);
-}
-
 void			ft_sl_av(char **av, int ac)
 {
 	int			i;
 	int			d;
 	char		*temp;
-	int 		j;
+	int			j;
 
 	j = 1;
 	d = 4;
@@ -80,28 +40,27 @@ void			ft_sl_av(char **av, int ac)
 	}
 }
 
-int	ls_remif_ls(t_ls **begin_list, int i)
+int				ls_remif_ls(t_ls **begin_list, int i, int c, int *flags)
 {
-	t_ls *list;
-	t_ls *parent;
-	t_ls *tmp;
-	int		c;
+	t_ls		*list;
+	t_ls		*parent;
+	t_ls		*tmp;
 
 	list = *begin_list;
-	parent = 0;
-	c = 0;
+	parent = NULL;
 	while (list && (tmp = list) && list->nm && ++c)
 	{
-		if (list->type == i)
+		if (list->tp == i)
 		{
 			if (parent)
 				parent->next = list->next;
 			else
 				*begin_list = list->next;
 			if (i == 1)
-				ls_errors(0, list->nm, 0);
+				errs(0, list->nm, 0);
 			free(list->nm);
 			free(list);
+			(*flags) += ((*flags) / 100000 % 2) ? 100000 : 0;
 		}
 		else
 			parent = list;
@@ -127,9 +86,9 @@ t_ls			*ls_lsavl(char **av, int flags)
 		if (*av && (temp = *av))
 			root->nm = ft_strdup(temp);
 		else if ((temp = ft_strdup("./")))
-				if ((root->nm = ft_strdup(temp)))
-					free(temp);
-		root->type = checktype(root->nm, "./", flags);
+			if ((root->nm = ft_strdup(temp)))
+				free(temp);
+		root->tp = checktype(root->nm, "./", flags);
 		if (!(*(av += (*av) ? 1 : 0)))
 			break ;
 		root->next = tlsnew();
@@ -138,58 +97,44 @@ t_ls			*ls_lsavl(char **av, int flags)
 	return (newroot);
 }
 
-int 			ls_rac(char **av)
+int				ls_rac(char **av)
 {
-	int 		c;
+	int			c;
 
 	c = 0;
 	while (av && (*av))
-	{
-		if (**av == '-' && *((*av) + 1))
-		{
-			c++;
+		if (**av == '-' && *((*av) + 1) && ++c)
 			(av)++;
-		}
 		else
 			return (c);
-	}
 	return (c);
 }
 
 int				main(int ac, char **av)
 {
-	int			flags;
+	int			f;
 	t_ls		*root;
-	int 		i;
-	t_ls		*tofree;
+	int			i;
+	t_ls		*tf;
 
-	flags = ls_tkflsc(100000000, av++, 1, 0);
+	f = ls_tkflsc(100000000, av++, 1, 0);
 	ft_sl_av(av, ac);
 	ac -= ls_rac(av);
-
 	while (av && *av && **av == '-' && *(*av + 1))
 		av++;
-	root = ls_lsavl(av, flags);
-	root = sort_ls(root, flags, "./", 0);
-	ls_remif_ls(&root, 1);
-	(!(i = 0) && ac >= 1 && root) ? ft_lsot(&root, flags) : 0;
-	ac = ls_remif_ls(&root, 2);
-	tofree = root;
-
+	root = ls_lsavl(av, f);
+	root = sort_ls(root, f, "./", 0);
+	ls_remif_ls(&root, 1, 0, &f);
+	i = (ac >= 1 && root) ? ft_lsot(&root, f) : 0;
+	ac = ls_remif_ls(&root, 2, 0, &f);
+	tf = root;
 	while (root)
 	{
-		if (!i)
-			write (1, "\n\n", 2);
-		if (ac >= 2) // was i++
-			ft_printf("%s:\n", root->nm);
-		(!(ls_ls(root->nm, flags)) && root->next) ? write(1, "\n", 1) : 0;
-		if ((root = root->next))
-			write(1, "\n", 1);
+		(i++ == 1) ? write(1, "\n\n", 2) : 0;
+		(ac >= 2 || f / 100000 % 2) ? ft_printf("%s:\n", root->nm) : 0;
+		(!(ls_ls(root->nm, f)) && root->next) ? write(1, "\n", 1) : 0;
+		((root = root->next)) ? write(1, "\n", 1) : 0;
 	}
-	if (ac >= 2 && tofree == root)
-		write(1, "\n", 1);
-	ls_free(tofree, NULL);
-	while (1)
-		;
+	(ft_putchar('\n') && tf) ? ls_free(tf, NULL) : 0;
 	return (0);
 }

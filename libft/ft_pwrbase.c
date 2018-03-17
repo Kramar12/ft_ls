@@ -16,6 +16,7 @@ short int			ft_pwrbase(ssize_t num, int base)
 {
 	short int		counter;
 
+	base = (!base) ? 10 : base;
 	counter = 1;
 	if (num < 0 || base < 0)
 		counter++;

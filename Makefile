@@ -2,7 +2,7 @@
 
 CC = gcc
 NAME = ft_ls
-SRC = major.c main.c mauxiliary.c rightstypes.c files.c new_ls.c auxiliary.c newsort.c
+SRC = major.c main.c mauxiliary.c rightstypes.c files.c new_ls.c auxiliary.c newsort.c print.c
 
 CFLAGS = -Wall -Wextra -Werror
 HEADER = -I ./header

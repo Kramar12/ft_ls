@@ -1,71 +1,88 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   major.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ariabyi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/16 17:00:35 by ariabyi           #+#    #+#             */
+/*   Updated: 2018/03/16 17:00:36 by ariabyi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-#include "libft/ft_strcmp.c"
-#include "libft/ft_mstrcmp.c"
-
-void					get_time(char *place, t_exls *ext, char *name)
+void					pwgr(uid_t uid, gid_t gid, nlink_t nlink, t_exls *ext)
 {
-	char				*temp;
-	struct stat			sb;
 	struct passwd		*pw;
 	struct group		*gr;
+
+	pw = getpwuid(uid);
+	gr = getgrgid(gid);
+	ft_printf("%*d %-*s  %-*s  ", ext->lls + 1, nlink, ext->lo,
+		pw->pw_name, ext->lg, gr->gr_name);
+}
+
+int						get_time(char *place, t_exls *ext, char *name)
+{
+	char				*t;
+	struct stat			sb;
 	char				buff[1024];
+	int					kata;
 
 	lstat(place, &sb);
 	ls_acl(place);
-	if ((readlink(place, buff, 1024) != -1))
+	kata = 0;
+	if ((readlink(place, buff, 1024) != -1) && (kata = 1))
 	{
-		temp = ft_multjoin(3, name, " -> ", buff);
-		name = ft_strdup(temp);
-		free(temp);
+		t = ft_multjoin(3, name, " -> ", buff);
+		name = ft_strdup(t);
+		free(t);
 	}
-	pw  = getpwuid(sb.st_uid);
-	gr = getgrgid(sb.st_gid);
-	ft_printf("%*d %-*s  %-*s  ", ext->lenlinks + 1, sb.st_nlink, ext->lenowner, pw->pw_name, ext->lengroup, gr->gr_name);
+	pwgr(sb.st_uid, sb.st_gid, sb.st_nlink, ext);
 	if (ext->dev || (S_ISBLK(sb.st_mode) || S_ISCHR(sb.st_mode)))
-		(ext->dev = 1 ) ? ft_printf("%*llu, %*llu ", ext->lmaj, MAJOR(sb.st_rdev), ext->lmin, MINOR(sb.st_rdev)) : 0;
-	else if (ext->dev)
-		ft_printf("%*zu ",ext->lensize, sb.st_size);
+		(ext->dev = 1) ? ft_printf("%*llu, %*llu ",
+				ext->lj, MAJOR(sb.st_rdev), ext->lm, MINOR(sb.st_rdev)) : 0;
 	else
-		ft_printf("%*zu ",ext->lensize, sb.st_size);
-	ft_printf("%s %s", (temp = ft_strsub(ctime((const time_t  *)&sb.st_mtimespec), 4, 12)), name);
-	free(temp);
+		ft_printf("%*zu ", ext->lsz, sb.st_size);
+	ft_printf("%s %s", (t =
+		ft_strsub(ctime((const time_t *)&sb.st_mtimespec), 4, 12)), name);
+	free(t);
+	(kata) ? free(name) : 0;
+	return (1);
 }
 
-void					ls_lpr(t_ls *root, t_exls *ext, int code)
+int						ls_helpget(char *pl, t_exls **ext, char *rnm, int f)
 {
-	char				*dest;
-	char				*temp;
-
-	if (!ls_getwidth(root, ext))
-		return ;
-	((dest = NULL) || !ext->solo) && !code ? ft_printf("total %d\n", ext->total) : 0;
-	while (root && root->nm)
-	{
-		if (*(temp = slovo(root->nm)) FLAG_A)
-		{
-			free(temp);
-			if (*root->nm == '/' && root->nm[ft_strlen(root->nm) - 1] != '/')
-				dest = ft_strdup(root->nm);
-			if (!dest && ext->FLAG_R)
-				dest = ft_multjoin(3, ext->dest, "/", root->nm);
-			else if (!dest)
-				dest = ft_strjoin(ext->dest, root->nm);
-			ls_rights(dest, ext->flags, ext->block);
-			get_time(dest, ext, root->nm);
-			(root->next && root->next->nm) ? write(1, "\n", 1) : 0;
-			dest ? free(dest) : 0;
-			dest = NULL;
-		}
-		root = root->next;
-	}
-}
-
-int					ls_getwidth(t_ls *root, t_exls *ext)	//для быстроты работы поставить условия на все операции которые нужны только для -l
-{
-	struct passwd		*pw;
-	struct group		*gr;
+	struct passwd		*p;
+	struct group		*g;
 	struct stat			sb;
+	t_exls				*e;
+
+	e = *ext;
+	lstat(pl, &sb);
+	e->ww = ft_strlen(rnm) > e->ww ? ft_strlen(rnm) : e->ww;
+	e->cw++;
+	if (!(f % 2))
+		return (1);
+	if ((p = getpwuid(sb.st_uid)))
+		e->lo = ft_strlen(p->pw_name) > e->lo ? ft_strlen(p->pw_name) : e->lo;
+	if ((g = getgrgid(sb.st_gid)))
+		e->lg = ft_strlen(g->gr_name) > e->lg ? ft_strlen(g->gr_name) : e->lg;
+	if ((sb.st_blksize < 0 || sb.st_rdev < 0) && !S_ISLNK(sb.st_mode))
+		return (0);
+	e->tt += sb.st_blocks;
+	e->lls = PWR(sb.st_nlink) > e->lls ? PWR(sb.st_nlink) : e->lls;
+	e->lsz = PWR(sb.st_size) > e->lsz ? PWR(sb.st_size) : e->lsz;
+	e->b = PWR(sb.st_blocks) > e->b ? PWR(sb.st_blocks) : e->b;
+	e->lj = PWR(MAJOR(sb.st_rdev)) > e->lj ? PWR(MAJOR(sb.st_rdev)) : e->lj;
+	e->lm = PWR(MINOR(sb.st_rdev)) > e->lm ? PWR(MINOR(sb.st_rdev)) : e->lm;
+	return (1);
+}
+
+int						ls_getwidth(t_ls *root, t_exls *ext, int flags)
+{
+	int					kata;
 	char				*place;
 	char				*temp;
 
@@ -76,66 +93,17 @@ int					ls_getwidth(t_ls *root, t_exls *ext)	//для быстроты рабо�
 		ext->dest = ft_strjoin(temp, "/");
 		free(temp);
 	}
-	while (root && root->nm)
+	while (root && root->nm && (temp = slovo(root->nm)))
 	{
-		temp = slovo(root->nm);
-		if (*root->nm == '/')
-			place = ft_strdup(root->nm);
-		else
-			place = ft_strjoin(ext->dest, root->nm);
-		lstat(place, &sb);
-		if ((pw = getpwuid(sb.st_uid)))
-			ext->lenowner = pw && ft_strlen(pw->pw_name) > (size_t)ext->lenowner ? (int) (ft_strlen(pw->pw_name)) : ext->lenowner;
-		if ((gr = getgrgid(sb.st_gid)))
-			ext->lengroup = ft_strlen(gr->gr_name) > (size_t)ext->lengroup ? (int) (ft_strlen(gr->gr_name)) : ext->lengroup;
-		if (!((sb.st_blksize < 0 || sb.st_rdev < 0) && !S_ISLNK(sb.st_mode)))
-		{
-			ext->total += sb.st_blocks;
-			ext->lenlinks = ft_pwrbase(sb.st_nlink, 10) > ext->lenlinks ? ft_pwrbase(sb.st_nlink, 10) : ext->lenlinks;
-			ext->lensize = ft_pwrbase(sb.st_size, 10) > ext->lensize ? ft_pwrbase(sb.st_size, 10) : ext->lensize;
-			ext->block = ft_pwrbase(sb.st_blocks, 10) > ext->block ? ft_pwrbase(sb.st_blocks, 10) : ext->block;
-			ext->wword = ft_strlen(root->nm) > (size_t) ext->wword ? (int) ft_strlen(root->nm) : ext->wword;
-			ext->cword++;
-			ext->lmaj = ft_pwrbase(MAJOR(sb.st_rdev), 10) > ext->lmaj ? ft_pwrbase(MAJOR(sb.st_rdev), 10) : ext->lmaj;
-			ext->lmin = ft_pwrbase(MINOR(sb.st_rdev), 10) > ext->lmin ? ft_pwrbase(MINOR(sb.st_rdev), 10) : ext->lmin;
-			root = root->next;
-		}
+		place = (*root->nm == '/') ? ft_strdup(root->nm)
+					: ft_strjoin(ext->dest, root->nm);
+		kata = ls_helpget(place, &ext, root->nm, flags);
+		root = root->next;
 		free(place);
 		free(temp);
-		if ((sb.st_blksize < 0 || sb.st_rdev < 0) && !S_ISLNK(sb.st_mode))
+		if (!kata)
 			return (0);
 	}
-	ext->elms = ext->cword;
+	ext->s = !ext->cw ? 0 : 1;
 	return (1);
 }
-
-void					ls_prnt(t_ls *root, t_exls *ext)
-{
-	int					i;
-	char				*temp;
-	char				*place;
-	int 				tcword;
-
-
-	temp = NULL;
-	place = NULL;
-	ls_getwidth(root, ext);
-	tcword = ext->cword;
-	while (!(i = 0) && ++ext->wword % 8);
-	while (root && root->nm)
-	{
-		if (i + ext->wword > ext->wscol || ((i / ext->wword == ext->cword / 2 + 1 && ext->cword * ext->wword > ext->wscol)))
-			i *= ft_printf("\n%-*s", ext->wword, root->nm) ? 0 : 0;
-		else
-			ft_printf("%-*s", ext->wword, root->nm);
-		tcword--;
-		free(temp);
-		free(place);
-		place = NULL;
-		i += (root->nm && *(temp = slovo(root->nm)) FLAG_A) ? ext->wword : 0;
-		root = root->next;
-		temp ? free(temp) : 0;
-		temp = NULL;
-	}
-}
-

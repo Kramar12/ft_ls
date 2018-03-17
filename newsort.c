@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   newsort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ariabyi <ariabyi@student.unit.ua>          +#+  +:+       +#+        */
+/*   By: ariabyi <aleksandr.rabyj@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/14 09:12:00 by ariabyi           #+#    #+#             */
-/*   Upnmd: 2018/03/14 09:12:00 by ariabyi          ###   ########.fr       */
+/*   Created: 2018/03/16 15:31:30 by ariabyi           #+#    #+#             */
+/*   Updated: 2018/03/16 15:31:34 by ariabyi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,35 @@ int					ct(char *rootnm, char *nrootnm, char *dest)
 	place = ft_multjoin(3, dest, "/", nrootnm);
 	lstat(place, &sb);
 	free(place);
-	q = sb.st_mtimespec.tv_sec;
-	place = ft_strjoin(dest, rootnm);
+	q = (ssize_t)sb.st_mtimespec.tv_sec;
+	place = ft_multjoin(3, dest, "/", rootnm);
 	lstat(place, &sp);
-	q -= sp.st_mtimespec.tv_sec;
+	q -= (ssize_t)sp.st_mtimespec.tv_sec;
 	free(place);
 	if (!q)
 		return (ft_strcmp(rootnm, nrootnm) >= 0 ? 1 : 0);
 	return (q > 0 ? 1 : 0);
 }
 
-int		ls_asctime(t_ls *elem1, t_ls *elem2, char *way, int code)
+int					ls_asctime(t_ls *list1, t_ls *list2, char *way, int code)
 {
 	if (code == 0)
-		return (ft_strcmp(elem1->nm, elem2->nm));
+		return (ft_strcmp(list1->nm, list2->nm));
 	else if (code == 1)
-		return (ct(elem1->nm, elem2->nm, way));
+	{
+		return (ct(list1->nm, list2->nm, way));
+	}
 	else if (code == 2)
-		return (elem1->type - elem2->type);
+		return (list1->tp - list2->tp);
 	return (-1);
 }
 
-t_ls	*sort_ls(t_ls *list, int flags, char *way, int code)
+t_ls				*sort_ls(t_ls *list, int flags, char *way, int code)
 {
-	t_ls	*new;
+	t_ls			*new;
 
 	if (!(new = list))
 		return (NULL);
-
 	sort(&new, way, 0);
 	if (code == 2)
 		sort(&new, way, code);
@@ -59,14 +60,16 @@ t_ls	*sort_ls(t_ls *list, int flags, char *way, int code)
 }
 
 /*
- * code 0 = assci, code 1 = time, code 2 = type
- */
+** -------------------------------------------------
+** code 0 = assci, code 1 = time, code 2 = type    -
+** -------------------------------------------------
+*/
 
-void	sort(t_ls **list, char *way, int code)
+void				sort(t_ls **list, char *way, int code)
 {
-	t_ls	*a;
-	t_ls	*b;
-	char	*temp;
+	t_ls			*a;
+	t_ls			*b;
+	char			*temp;
 
 	a = *list;
 	while (a && a->next)
@@ -81,7 +84,7 @@ void	sort(t_ls **list, char *way, int code)
 				a->nm = ft_strdup(b->nm);
 				free(((b)->nm));
 				b->nm = ft_strdup(temp);
-				ft_swap(&(a->type), &(b->type));
+				ft_swap(&(a->tp), &(b->tp));
 				free(temp);
 			}
 			b = b->next;
@@ -90,11 +93,11 @@ void	sort(t_ls **list, char *way, int code)
 	}
 }
 
-void	reversesort(t_ls **list)
+void				reversesort(t_ls **list)
 {
-	t_ls	*p;
-	t_ls	*q;
-	t_ls	*r;
+	t_ls			*p;
+	t_ls			*q;
+	t_ls			*r;
 
 	p = *list;
 	q = NULL;

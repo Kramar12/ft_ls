@@ -1,24 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   auxiliary.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ariabyi <aleksandr.rabyj@gmail.com>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/16 15:34:40 by ariabyi           #+#    #+#             */
+/*   Updated: 2018/03/16 15:35:01 by ariabyi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-t_ls					*ls_tsd(DIR *dir, struct dirent *entry, int flags, char *way)   //take struct dirent
+t_ls					*ls_tsd(DIR *dir, struct dirent *e, int f, char *way)
 {
 	t_ls				*tape;
 	t_ls				*root;
-	int 				swc;
+	int					swc;
 
 	swc = 0;
 	tape = tlsnew();
 	root = tape;
-	entry = readdir(dir);
-	while (entry)
+	e = readdir(dir);
+	while (e)
 	{
-		if ((*(entry->d_name) != '.' || (flags / 10) % 2))
+		if ((*(e->d_name) != '.' || (f / 10) % 2))
 		{
-			tape->nm = ft_strdup(entry->d_name);
-			tape->type = checktype(tape->nm, way, flags);
+			tape->nm = ft_strdup(e->d_name);
+			tape->tp = checktype(tape->nm, way, f);
 			swc = 1;
 		}
-		if ((entry = readdir(dir)) && swc == 1)
+		if ((e = readdir(dir)) && swc == 1)
 		{
 			tape->next = tlsnew();
 			tape = tape->next;
@@ -41,7 +53,7 @@ char					*slovo(char *s)
 	while (s[i])
 	{
 		if (s[i] == '/')
-			j = (unsigned short int )i;
+			j = (unsigned short int)i;
 		i++;
 	}
 	if (j != 32767)
@@ -71,7 +83,7 @@ void					ls_acl(char *place)
 	acl_free(acl);
 }
 
- char					*ls_takeway(char *av, int code)
+char					*ls_takeway(char *av, int code)
 {
 	char				*way;
 
@@ -87,33 +99,16 @@ void					ls_acl(char *place)
 	return (way);
 }
 
-int						ls_errors(char lt, char *way, int code)
+void					ls_free(t_ls *head, t_exls *ext)
 {
-	char				*temp;
-
-	temp = NULL;
-	code == 0 ? ft_printf("ls: %s: %s\n", (temp = ft_strsub(way, 0, (ft_strlen(way)))), strerror(errno)) : 0;
-	if (code == 1)
-	{
-		ft_printf("ls: illegal option -- %c\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", lt);
-		free(temp);
-		exit (0);
-	}
-	code == 2 ? ft_printf("\n\nls: %s: %s", way, strerror(errno)) : 0;
-	free(temp);
-	return (1);
-}
-
-void ls_free(t_ls *head, t_exls *ext)
-{
-	t_ls *curr;
+	t_ls				*curr;
 
 	while ((curr = head))
 	{
 		head = head->next;
 		if (curr->nm)
 			free(curr->nm);
-		free (curr);
+		free(curr);
 	}
 	if (ext)
 	{

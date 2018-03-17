@@ -11,20 +11,18 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_strjoin.c"
-# include <stdarg.h>
 
-char 	*ft_multjoin(int field, ...)
+char			*ft_multjoin(int field, ...)
 {
-	va_list 	ap;
-	char 		*dest;
+	va_list		ap;
+	char		*dest;
 	char		*fin;
-	char 		*ret;
+	char		*ret;
 
 	va_start(ap, field);
 	fin = NULL;
 	dest = NULL;
-	while(field--)
+	while (field--)
 	{
 		dest = ft_strjoin(fin, va_arg(ap, char *));
 		free(fin);
@@ -36,6 +34,5 @@ char 	*ft_multjoin(int field, ...)
 	ret = ft_strdup(fin);
 	free(fin);
 	free(dest);
-
 	return (ret);
 }

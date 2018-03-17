@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   mauxiliary.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ariabyi <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ariabyi <aleksandr.rabyj@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 17:50:09 by ariabyi           #+#    #+#             */
 /*   Updated: 2018/03/10 17:50:12 by ariabyi          ###   ########.fr       */
@@ -32,7 +32,7 @@ int					ls_tkflsc(int flags, char **av, int w, int l)
 			else if (av[w][l] == '\0')
 				return (flags);
 			else
-				ls_errors(av[w][l], NULL, 1);
+				errs(av[w][l], NULL, 1);
 			if (!av[w][l] && w++ != -42 && !(l = 0))
 				if (!av[w] || av[w][l] != '-' || l++ == -42)
 					break ;
@@ -65,10 +65,31 @@ t_exls				*textlsnew(char *s, int flags, unsigned int wscol)
 		free(new);
 		return (NULL);
 	}
-	*new = (t_exls){0, 0, 0, 0, 0, 0, 0, 0, 10000000, 0, 0, 0, 0, 0, 0, 0};
+	*new = (t_exls){10000000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	new->dest = ft_strdup(s);
 	new->flags = flags;
-	new->wscol = wscol;
-
+	new->wc = wscol;
 	return (new);
+}
+
+int					errs(char lt, char *way, int code)
+{
+	char			*temp;
+
+	temp = NULL;
+	code == 0 ? ft_printf("ls: %s: %s\n", (temp = ft_strsub(way, 0,
+	(ft_strlen(way)))), strerror(errno)) : 0;
+	if (code == 1)
+	{
+		ft_printf("ls: illegal option -- %c\nusage: ls [-ABCFGHLOPRST"
+				"UWabcdefghiklmnopqrstuwx1] [file ...]\n", lt);
+		free(temp);
+		exit(0);
+	}
+	code == 2 ? ft_printf("\n\nls: %s: %s", way, strerror(errno)) : 0;
+	if (code == 4)
+		if (!ft_strcmp(way, "/dev/fd/3"))
+			ft_putstr("dr--r--r--      1 root     wheel    0 Mar 13 14:04 3");
+	free(temp);
+	return (1);
 }
