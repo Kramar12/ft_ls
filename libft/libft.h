@@ -6,7 +6,7 @@
 /*   By: ariabyi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 14:18:27 by ariabyi           #+#    #+#             */
-/*   Updated: 2018/03/15 12:41:39 by ariabyi          ###   ########.fr       */
+/*   Updated: 2018/03/18 13:10:27 by ariabyi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,6 @@ int					ft_csymb(char *s, char c);
 char				*ft_multjoin(int field, ...);
 int					ft_mstrcmp(int field, ...);
 int					ft_strprint(char *s);
+char				*ft_rfstr(char *wt, char *wr, char *wh, int code);
 
 #endif
