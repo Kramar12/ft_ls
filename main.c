@@ -12,34 +12,6 @@
 
 #include "ft_ls.h"
 
-void			ft_sl_av(char **av, int ac)
-{
-	int			i;
-	int			d;
-	char		*temp;
-	int			j;
-
-	j = 1;
-	d = 4;
-	while (av && av[j] && av[j][0] == '-' && av[j][1])
-		j++;
-	while (d == 4 && (i = j))
-	{
-		d = 0;
-		while (av && av[i] && --ac)
-		{
-			if ((av[i + 1] && (ft_strcmp(av[i], av[i + 1])) > 0) || !(i++))
-			{
-				temp = ft_strdup(av[i + 1]);
-				av[i + 1] = ft_strdup(av[i]);
-				av[i] = ft_strdup(temp);
-				d = 4;
-				free(temp);
-			}
-		}
-	}
-}
-
 int				ls_remif_ls(t_ls **begin_list, int i, int c, int *flags)
 {
 	t_ls		*list;
@@ -71,28 +43,29 @@ int				ls_remif_ls(t_ls **begin_list, int i, int c, int *flags)
 
 t_ls			*ls_lsavl(char **av, int flags)
 {
-	char		*temp;
-	t_ls		*root;
+	char		*t;
+	t_ls		*r;
 	t_ls		*newroot;
 
-	temp = NULL;
-	root = NULL;
+	t = NULL;
+	r = NULL;
 	newroot = NULL;
-	while (*av || !temp)
+	while (*av || !t)
 	{
 		if (!newroot)
-			if ((root = tlsnew()))
-				newroot = root;
-		if (*av && (temp = *av))
-			root->nm = ft_strdup(temp);
-		else if ((temp = ft_strdup("./")))
-			if ((root->nm = ft_strdup(temp)))
-				free(temp);
-		root->tp = checktype(root->nm, "./", flags);
+			if ((r = tlsnew()))
+				newroot = r;
+		if (*av && (t = *av))
+			r->nm = *t != '~' ? ft_strdup(t) :
+					ft_rfstr("~", t, "/Users/ariabyi", 2);
+		else if ((t = ft_strdup("./")))
+			if ((r->nm = ft_strdup(t)))
+				free(t);
+		r->tp = checktype(r->nm, "./", flags);
 		if (!(*(av += (*av) ? 1 : 0)))
 			break ;
-		root->next = tlsnew();
-		root = root->next;
+		r->next = tlsnew();
+		r = r->next;
 	}
 	return (newroot);
 }
@@ -113,28 +86,27 @@ int				ls_rac(char **av)
 int				main(int ac, char **av)
 {
 	int			f;
-	t_ls		*root;
+	t_ls		*r;
 	int			i;
 	t_ls		*tf;
 
 	f = ls_tkflsc(100000000, av++, 1, 0);
-	ft_sl_av(av, ac);
 	ac -= ls_rac(av);
 	while (av && *av && **av == '-' && *(*av + 1))
 		av++;
-	root = ls_lsavl(av, f);
-	root = sort_ls(root, f, "./", 0);
-	ls_remif_ls(&root, 1, 0, &f);
-	i = (ac >= 1 && root) ? ft_lsot(&root, f) : 0;
-	ac = ls_remif_ls(&root, 2, 0, &f);
-	tf = root;
-	while (root)
+	r = ls_lsavl(av, f);
+	r = sort_ls(r, f, "./", 0);
+	ls_remif_ls(&r, 1, 0, &f);
+	i = (ac >= 1 && r) ? ft_lsot(&r, f) : 0;
+	ac = ls_remif_ls(&r, 2, 0, &f);
+	tf = r;
+	while (r)
 	{
 		(i++ == 1) ? write(1, "\n\n", 2) : 0;
-		(ac >= 2 || f / 100000 % 2) ? ft_printf("%s:\n", root->nm) : 0;
-		(!(ls_ls(root->nm, f)) && root->next) ? write(1, "\n", 1) : 0;
-		((root = root->next)) ? write(1, "\n", 1) : 0;
+		(ac >= 2 || f / 100000 % 2) ? ft_printf("%s:\n", r->nm) : 0;
+		(!(ls_ls(r->nm, f)) && r->next) ? write(1, "\n", 1) : 0;
+		((r = r->next)) ? write(1, "\n", 1) : 0;
 	}
-	(ft_putchar('\n') && tf) ? ls_free(tf, NULL) : 0;
+	((!errno && ft_putchar('\n')) || tf) ? ls_free(tf, NULL) : 0;
 	return (0);
 }
