@@ -69,32 +69,30 @@ typedef	struct		s_exls
 }					t_exls;
 
 t_ls				*tlsnew(void);
-int					ph(char *name);
 char				*slovo(char *s);
 void				ls_acl(char *place);
 t_ls				*ls_argfl(t_ls *nroot);
 void				reversesort(t_ls **list);
-void				ft_sl_av(char **av, int ac);
 int					ls_ls(char *dest, int flags);
+int					errs(char lt, char *w, int c);
 char				*ls_takeway(char *av, int cod);
 void				ls_free(t_ls *tape, t_exls *ext);
 int					ft_lsot(t_ls **nroot, int flags);
-void				ls_prnt(t_ls *root, t_exls *ext, int flags);
-int					errs(char lt, char *w, int c);
-int					ls_getwidth(t_ls *root, t_exls *ext, int flags);
-void				ls_lpr(t_ls *rot, t_exls *e, int code, int flags);
+int					ls_rights(char *name, int wblocks);
 void				sort(t_ls **list, char *way, int code);
+void				ls_pr_type(struct stat sb, int *wblocks);
 int					checktype(char *av, char *dest, int flags);
+void				ls_prnt(t_ls *root, t_exls *ext, int flags);
 int					ct(char *rootnm, char *nrootnm, char *dest);
 int					newls_whip(char *way, t_ls *tape, int flags);
 t_exls				*textlsnew(char *s, int f, unsigned int wcol);
 int					ls_tkflsc(int flags, char **av, int w, int l);
-int					ls_rights(char *name, int wblocks);
 int					get_files(char *way, int flags, t_ls **otape);
 int					get_time(char *place, t_exls *ext, char *name);
+int					ls_getwidth(t_ls *root, t_exls *ext, int flags);
 void				ls_listrec(const char *w, int f, t_ls *t, int c);
+void				ls_lpr(t_ls *rot, t_exls *e, int code, int flags);
 t_ls				*ls_tsd(DIR *dir, struct dirent *e, int f, char *w);
-void				ls_pr_type(struct stat sb, int *wblocks);
 t_ls				*sort_ls(t_ls *list, int flags, char *way, int code);
 
 #endif

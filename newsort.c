@@ -23,7 +23,10 @@ int					ct(char *rootnm, char *nrootnm, char *dest)
 	lstat(place, &sb);
 	free(place);
 	q = (ssize_t)sb.st_mtimespec.tv_sec;
-	place = ft_multjoin(3, dest, "/", rootnm);
+	if (*rootnm != '/')
+		place = ft_multjoin(3, dest, "/", rootnm);
+	else
+		place = ft_strdup(rootnm);
 	lstat(place, &sp);
 	q -= (ssize_t)sp.st_mtimespec.tv_sec;
 	free(place);

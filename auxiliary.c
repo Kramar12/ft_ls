@@ -47,7 +47,7 @@ char					*slovo(char *s)
 	unsigned short int	j;
 
 	i = 0;
-	j = 32767;
+	j = 256;
 	if (!s)
 		return (NULL);
 	while (s[i])
@@ -56,7 +56,7 @@ char					*slovo(char *s)
 			j = (unsigned short int)i;
 		i++;
 	}
-	if (j != 32767)
+	if (j != 256)
 		dest = ft_strsub(s, j, ft_strlen(s) - j);
 	else
 		dest = ft_strdup(s);
@@ -103,7 +103,7 @@ char					*ls_takeway(char *av, int code)
 			way ? free(way) : 0;
 			way = ft_strjoin(temp, "/");
 		}
-		way = !way ? ft_strdup(av) : 0;
+		way = !way ? ft_strdup(av) : way;
 		free(temp);
 	}
 	return (way);

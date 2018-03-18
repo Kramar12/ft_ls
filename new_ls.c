@@ -19,12 +19,13 @@ int							ls_ls(char *dest, int flags)
 
 	way = (dest) ? ls_takeway(dest, 1) : ls_takeway("./", 1);
 	get_files(way, flags, &tape);
-	if (!(FLAG_R))
+	if (!(FLAG_R) && tape)
 		newls_whip(way, tape, flags);
-	else
+	else if (tape)
 		ls_listrec(way, flags, tape, 0);
 	ls_free(tape, NULL);
 	free(way);
+	errno = 0;
 	return (0);
 }
 
@@ -36,8 +37,11 @@ int							get_files(char *way, int flags, t_ls **root)
 
 	entry = NULL;
 	if (!(dir = opendir(way)))
+	{
+		*root = NULL;
 		if (errs(0, way, 2))
 			return (-1);
+	}
 	tape = ls_tsd(dir, entry, flags, way);
 	tape = sort_ls(tape, flags, way, 1);
 	dir ? closedir(dir) : 0;
@@ -54,8 +58,6 @@ void						ls_whipe(const char *way, char *tnm, int c, int fs)
 		path = ft_multjoin(3, way, "/", tnm);
 	else
 		path = ft_strjoin(way, tnm);
-	if (!ft_strcmp(path, "/usr/share/man/man3"))
-		write(1, "\n", 1);
 	if ((c = (get_files(path, fs, &subdir))) != -1)
 	{
 		ls_listrec(path, fs, subdir, c);

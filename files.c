@@ -31,12 +31,12 @@ int					ft_lsot(t_ls **root, int flags)
 	new_root = ls_argfl(*root);
 	if (new_root && new_root->nm)
 	{
-		if (ext->flags % 2)
+		if (++i > 0 && ext->flags % 2)
 			ls_lpr(new_root, ext, 1, flags);
 		else
 			ls_prnt(new_root, ext, flags);
-		i++;
 	}
+	errno = 0;
 	ls_free(new_root, ext);
 	return (i);
 }
@@ -88,12 +88,16 @@ int					checktype(char *av, char *dest, int flags)
 	if (!(temp = NULL) && ft_strprint(av) && *av != '~' && *av != '/')
 		temp = ft_multjoin(3, dest, "/", av);
 	temp = (!temp && *av != '~' && *av != '/') ? ft_strjoin(NULL, av) : temp;
+	if (!temp)
+	temp = (!temp && *av == '~') ? ft_strjoin("/Users/ariabyi/",
+			ft_strsub(av, 2, ft_strlen(av))) : 0;
 	temp = (!temp) ? ft_strdup(av) : temp;
 	lstat(temp, &sb);
 	if ((x = 0) || (help_ct(flags, temp, sb.st_mode) == 2))
 		return (2);
 	x += ((fstgate = opendir(temp))) ? 1 : 0;
-	x += ((sndgate = fopen(av, "r"))) ? 2 : 0;
+	if (!(sndgate = NULL) && !S_ISCHR(sb.st_mode))
+		x += ((sndgate = fopen(temp, "r"))) ? 2 : 0;
 	(fstgate) ? closedir(fstgate) : 0;
 	(sndgate) ? fclose(sndgate) : 0;
 	free(temp);

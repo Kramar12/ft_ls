@@ -107,6 +107,6 @@ int				main(int ac, char **av)
 		(!(ls_ls(r->nm, f)) && r->next) ? write(1, "\n", 1) : 0;
 		((r = r->next)) ? write(1, "\n", 1) : 0;
 	}
-	((!errno && ft_putchar('\n')) || tf) ? ls_free(tf, NULL) : 0;
+	((!errno && ft_putchar('\n')) || tf) ? ls_free(tf, NULL) : 0; // errno
 	return (0);
 }

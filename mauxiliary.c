@@ -77,16 +77,25 @@ int					errs(char lt, char *way, int code)
 	char			*temp;
 
 	temp = NULL;
-	code == 0 ? ft_printf("ls: %s: %s\n", (temp = ft_strsub(way, 0,
-	(ft_strlen(way)))), strerror(errno)) : 0;
+	if (code == 0)
+	{
+		ft_putstr_fd("ls: ", 2);
+		ft_putstr_fd(way, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+	}
 	if (code == 1)
 	{
-		ft_printf("ls: illegal option -- %c\nusage: ls [-ABCFGHLOPRST"
-				"UWabcdefghiklmnopqrstuwx1] [file ...]\n", lt);
+		ft_putstr_fd("ls: illegal option -- ", 2);
+		ft_putchar_fd(lt, 2);
+		ft_putstr_fd("\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", 2);
 		free(temp);
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
-	code == 2 ? ft_printf("\n\nls: %s: %s", way, strerror(errno)) : 0;
+	if (code == 2)
+	{
+		ft_printf("ls : %s: ", way) ? ft_putstr(strerror(errno)) : 0;
+		errno = 0;
+	}
 	if (code == 4)
 		if (!ft_strcmp(way, "/dev/fd/3"))
 			ft_putstr("dr--r--r--      1 root     wheel    0 Mar 13 14:04 3");
